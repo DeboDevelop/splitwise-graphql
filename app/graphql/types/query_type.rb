@@ -21,5 +21,13 @@ module Types
       byebug
       user_friend + friend_user
     end
+
+    field :get_receivable_bills, [Types::BillContributionType], null: true, description: "Get all the bills from where user will receive money"
+
+    def get_receivable_bills
+      receivable_bills = BillContribution.where(user_owed_id: context[:current_user].id, completely_paid: false)
+      result = receivable_bills.map{ |bill| {id: bill.id, description: bill.description, user_owes: User.find(bill.user_owes_id), amount: bill.amount, amount_paid: bill.amount_paid }}
+      result
+    end
   end
 end
