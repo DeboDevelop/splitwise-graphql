@@ -12,5 +12,14 @@ module Types
     def current_user
       context[:current_user]
     end
+
+    field :friendship, [Types::UserType], null: true, description: "Get friendship of current user"
+
+    def friendship
+      user_friend = Friendship.where(user_id: context[:current_user].id).map{ |friend| User.find(friend.friend_user_id)}
+      friend_user = Friendship.where(friend_user_id: context[:current_user].id).map{ |friend| User.find(friend.user_id)}
+      byebug
+      user_friend + friend_user
+    end
   end
 end

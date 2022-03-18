@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2022_03_17_061430) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "friendships", id: false, force: :cascade do |t|
+  create_table "friendships", force: :cascade do |t|
     t.integer "user_id"
     t.integer "friend_user_id"
     t.index ["friend_user_id", "user_id"], name: "index_friendships_on_friend_user_id_and_user_id", unique: true
