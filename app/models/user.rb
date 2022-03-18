@@ -6,9 +6,10 @@ class User < ApplicationRecord
               join_table: :friendships, 
               foreign_key: :user_id, 
               association_foreign_key: :friend_user_id
-              
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
   has_many :session
+  has_many :bill_contribution
 end

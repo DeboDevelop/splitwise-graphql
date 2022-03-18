@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_17_061430) do
+ActiveRecord::Schema.define(version: 2022_03_18_101009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bill_contributions", force: :cascade do |t|
+    t.string "description", default: "", null: false
+    t.integer "user_owed_id"
+    t.integer "user_owes_id"
+    t.float "amount", default: 0.0, null: false
+    t.boolean "completely_paid", default: false, null: false
+    t.boolean "partialy_paid", default: false, null: false
+    t.float "amount_paid", default: 0.0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "friendships", force: :cascade do |t|
     t.integer "user_id"
