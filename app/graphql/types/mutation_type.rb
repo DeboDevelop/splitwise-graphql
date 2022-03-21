@@ -7,5 +7,6 @@ module Types
     field :logout, Boolean, mutation: Mutations::Logout
     field :create_bill_equal_split, Boolean, mutation: Mutations::CreateBillEqualSplit
     field :create_bill_percentage_split, Boolean, mutation: Mutations::CreateBillPercentageSplit
+    field :create_bill_unequal_split, Boolean, mutation: Mutations::CreateBillUnequalSplit
   end
 end
