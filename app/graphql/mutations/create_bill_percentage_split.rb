@@ -1,26 +1,34 @@
-class Mutations::CreateBillEqualSplit < GraphQL::Schema::Mutation
-    description "Create Bill with equal split"
+class Mutations::CreateBillPercentageSplit < GraphQL::Schema::Mutation
+    description "Create Bill with percentage split"
     null true
 
     argument :description, String, "Description of the bill", required: true
     argument :amount, Float, "Description of the bill", required: true
     argument :bill_payer, Int, "Id of the bill payer", required: true
-    argument :shared_amoung, [Int], "Ids of the people who split the bill", required: true
+    argument :shared_amoung, [Types::SharedAmoungInputType], "Ids and percentage of the people who split the bill", required: true
 
     field :status, Boolean, "Status of the operation"
     field :errors, [String], "List of errors", null: false
 
     def resolve(description:, amount:, bill_payer:, shared_amoung:)
         success = true
-        if context[:current_user].id != bill_payer
-            shared_amoung.push(context[:current_user].id)
+        total_percentage = 0;
+        shared_amoung.each do |sa|
+            total_percentage += sa.amount
         end
-        contributor_amount = amount / (shared_amoung.length() + 1)
+
+        if total_percentage >= 100
+            return {
+                status: false,
+                errors: ["Total percentage is equal to or over 100"]
+            }
+        end
 
         bill_contributors = []
 
-        shared_amoung.each do |id|
-            bill_contributors.push(BillContribution.new(description: description, user_owed_id: bill_payer, user_owes_id: id, amount: contributor_amount))
+        shared_amoung.each do |sa|
+            contributor_amount = (sa.amount*amount)/100
+            bill_contributors.push(BillContribution.new(description: description, user_owed_id: bill_payer, user_owes_id: sa.id, amount: contributor_amount))
         end
 
         BillContribution.transaction do
