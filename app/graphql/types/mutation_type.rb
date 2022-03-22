@@ -8,5 +8,6 @@ module Types
     field :create_bill_equal_split, Boolean, mutation: Mutations::CreateBillEqualSplit
     field :create_bill_percentage_split, Boolean, mutation: Mutations::CreateBillPercentageSplit
     field :create_bill_unequal_split, Boolean, mutation: Mutations::CreateBillUnequalSplit
+    field :settle_up, Boolean, mutation: Mutations::SettleUp
   end
 end
