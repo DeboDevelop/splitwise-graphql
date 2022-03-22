@@ -3,7 +3,7 @@ class Mutations::CreateBillUnequalSplit < GraphQL::Schema::Mutation
     null true
 
     argument :description, String, "Description of the bill", required: true
-    argument :amount, Float, "Description of the bill", required: true
+    argument :amount, Float, "Amount of the bill", required: true
     argument :bill_payer, Int, "Id of the bill payer", required: true
     argument :shared_amoung, [Types::SharedAmoungInputType], "Ids and percentage of the people who split the bill", required: true
 
