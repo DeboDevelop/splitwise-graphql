@@ -9,4 +9,12 @@ class Types::BillContributionType < Types::BaseObject
     def self.visible?(context)
         !!context[:current_user]
     end
+
+    def self.authorized?(object, args, context)
+        if args.to_h[:user].to_i == context[:current_user][:id]
+            true
+        else
+            return false, { errors: ["User doesn't have permission"] }
+        end
+    end
 end

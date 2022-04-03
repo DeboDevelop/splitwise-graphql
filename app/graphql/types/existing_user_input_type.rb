@@ -10,4 +10,12 @@ class Types::ExistingUserInputType < GraphQL::Schema::InputObject
     def self.visible?(context)
         !!context[:current_user]
     end
+
+    def self.authorized?(object, args, context)
+        if args.to_h[:id].to_i == context[:current_user][:id]
+            true
+        else
+            return false, { errors: ["User doesn't have permission"] }
+        end
+    end
 end
