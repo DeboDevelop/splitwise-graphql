@@ -6,4 +6,8 @@ class Types::ExistingUserInputType < GraphQL::Schema::InputObject
     argument :name, String, "Name of the user", required: false
     argument :email, String, "Email of the user", required: false
     argument :password, String, "Password of the user", required: false
+
+    def self.visible?(context)
+        !!context[:current_user]
+    end
 end

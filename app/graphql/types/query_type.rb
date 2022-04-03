@@ -18,7 +18,6 @@ module Types
     def friendship
       user_friend = Friendship.where(user_id: context[:current_user].id).map{ |friend| User.find(friend.friend_user_id)}
       friend_user = Friendship.where(friend_user_id: context[:current_user].id).map{ |friend| User.find(friend.user_id)}
-      byebug
       user_friend + friend_user
     end
 

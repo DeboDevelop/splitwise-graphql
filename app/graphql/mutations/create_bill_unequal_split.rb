@@ -44,4 +44,8 @@ class Mutations::CreateBillUnequalSplit < GraphQL::Schema::Mutation
             errors: []
         }
     end
+
+    def self.visible?(context)
+        !!context[:current_user]
+    end
 end

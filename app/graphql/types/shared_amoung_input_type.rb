@@ -4,4 +4,8 @@ class Types::SharedAmoungInputType < GraphQL::Schema::InputObject
 
     argument :id, Int, "Id of the user", required: true
     argument :amount, Float, "Amount/percentage of bill shared by the user", required: true
+
+    def self.visible?(context)
+        !!context[:current_user]
+    end
 end

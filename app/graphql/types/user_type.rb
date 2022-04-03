@@ -3,4 +3,8 @@ class Types::UserType < Types::BaseObject
     field :id, ID, "Id of the user", null: false
     field :name, String, "Name of the user", null: false
     field :email, String, "Email of the user", null: false
+
+    def self.visible?(context)
+        !!context[:current_user]
+    end
 end

@@ -5,4 +5,8 @@ class Types::BillContributionType < Types::BaseObject
     field :user, Types::UserType, "User who owes to current user", null: false
     field :amount, Float, "Amount of the bill", null: false
     field :amount_paid, Float, "Amount of the bill already paid", null: false
+
+    def self.visible?(context)
+        !!context[:current_user]
+    end
 end

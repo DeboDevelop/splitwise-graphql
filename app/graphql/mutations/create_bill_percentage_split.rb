@@ -52,4 +52,8 @@ class Mutations::CreateBillPercentageSplit < GraphQL::Schema::Mutation
             }
         end
     end
+
+    def self.visible?(context)
+        !!context[:current_user]
+    end
 end
