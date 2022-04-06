@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  root to: 'cm_admin/user#index'
+
+  mount CmAdmin::Engine => "/admin"
   if Rails.env.development?
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end

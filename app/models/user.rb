@@ -12,4 +12,23 @@ class User < ApplicationRecord
 
   has_many :session
   has_many :bill_contribution
+
+  def super_admin?
+    true
+  end
+
+  cm_admin do
+    actions only: []
+    cm_index do
+      page_title 'User'
+      page_description 'View all your User here'
+  
+      filter [:code], :search, placeholder: 'Search'
+  
+      column :id
+      column :email
+      column :name
+    end
+  end
+
 end
